@@ -1,0 +1,4 @@
+project(program_shell)
+
+set(exe1 main01)
+add_executable(${exe1} ${exe1}.cpp)
