@@ -17,3 +17,9 @@ add_executable(${exe5} ${exe5}.cpp)
 
 set(exe6 exercise06)
 add_executable(${exe6} ${exe6}.cpp)
+
+set(exe7 exercise07)
+add_executable(${exe7} ${exe7}.cpp)
+
+set(exe8 exercise08)
+add_executable(${exe8} ${exe8}.cpp)
