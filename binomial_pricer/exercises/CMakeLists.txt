@@ -5,3 +5,15 @@ add_executable(${exe1} ${exe1}.cpp)
 
 set(exe2 exercise02)
 add_executable(${exe2} ${exe2}.cpp)
+
+set(exe3 exercise03)
+add_executable(${exe3} ${exe3}.cpp)
+
+set(exe4 exercise04)
+add_executable(${exe4} ${exe4}.cpp)
+
+set(exe5 exercise05)
+add_executable(${exe5} ${exe5}.cpp)
+
+set(exe6 exercise06)
+add_executable(${exe6} ${exe6}.cpp)
