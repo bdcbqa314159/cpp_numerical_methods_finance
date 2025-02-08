@@ -1,8 +1,7 @@
 project(numerical_methods)
 
 set(includes includes/)
-set(sources src/message.cpp
-            src/binomial_pricing.cpp)
+set(sources src/message.cpp src/coding_along.cpp)
 
 add_library(${PROJECT_NAME} ${sources})
 target_include_directories(${PROJECT_NAME} PUBLIC ${includes})
