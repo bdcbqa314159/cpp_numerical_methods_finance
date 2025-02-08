@@ -9,3 +9,13 @@ double risk_neutral_calculator(double U, double D, double R)
     double q = (U - R) / (D - R);
     return q;
 }
+
+double h_call(double x, double K)
+{
+    return (x > K) * (x - K);
+}
+
+double h_put(double x, double K)
+{
+    return (x < K) * (K - x);
+}
