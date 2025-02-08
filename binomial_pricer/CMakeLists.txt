@@ -2,4 +2,6 @@ project(binomial_pricer)
 
 add_subdirectory(program_shell)
 add_subdirectory(entering_data)
+add_subdirectory(functions)
+add_subdirectory(separate_compilation)
 add_subdirectory(exercises)
