@@ -6,3 +6,4 @@
 double risk_neutral_calculator(double U, double D, double R);
 double h_call(double x, double K);
 double h_put(double x, double K);
+double binomial_price_stock(double S0, double U, double D, int n, int i);
