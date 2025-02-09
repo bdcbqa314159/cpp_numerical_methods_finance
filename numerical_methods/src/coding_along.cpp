@@ -1,4 +1,5 @@
 #include "coding_along.hpp"
+#include "payoff_utils.hpp"
 #include <cassert>
 
 double risk_neutral_calculator(double U, double D, double R)
@@ -8,16 +9,6 @@ double risk_neutral_calculator(double U, double D, double R)
 
     double q = (R - D) / (U - D);
     return q;
-}
-
-double h_call(double x, double K)
-{
-    return (x > K) * (x - K);
-}
-
-double h_put(double x, double K)
-{
-    return (x < K) * (K - x);
 }
 
 void binomial_parameters_checker(const double &S0, const double &U, const double &D, const int &n, const int &i)
