@@ -15,6 +15,7 @@ find_package(Boost REQUIRED COMPONENTS date_time)
 add_subdirectory(numerical_methods)
 
 add_subdirectory(binomial_pricer)
+add_subdirectory(binomial_pricer_revisited)
 
 add_subdirectory(test)
 
