@@ -5,14 +5,16 @@ class DefInt
 
 private:
     double a = 0., b = 1.;
-    double (*function)(double x) = nullptr;
 
 public:
+    virtual double function(double x) = 0;
     DefInt() = default;
-    DefInt(double a, double b, double (*f)(double x)) : a(a), b(b), function(f) {}
-    void setFunction(double (*f)(double x))
+    virtual ~DefInt() = default;
+
+    void setBoundaries(double a, double b)
     {
-        function = f;
+        this->a = a;
+        this->b = b;
     }
 
     double ByTrapezoid(int N)
@@ -44,17 +46,25 @@ public:
     }
 };
 
-double f(double x);
+class MyIntegral : public DefInt
+{
+public:
+    virtual double function(double x) override
+    {
+        return x * x;
+    }
+};
 
 int main()
 {
     double a = 0., b = 1.;
-    DefInt myIntegral(a, b, f);
+    MyIntegral myInt;
+    myInt.setBoundaries(a, b);
     int N = 100;
 
     std::cout << "Integral of x*x on the interval [0,1]:\n";
-    std::cout << myIntegral.ByTrapezoid(N) << "\n";
-    std::cout << myIntegral.BySimpson(N) << "\n";
+    std::cout << myInt.ByTrapezoid(N) << "\n";
+    std::cout << myInt.BySimpson(N) << "\n";
 
     return 0;
 }
