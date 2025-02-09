@@ -19,6 +19,10 @@ double EurOption::price_by_CRR(BinomialModel model)
     return price[0];
 }
 
+// double AmOption::price_by_Snell(BinomialModel Model, BinomialLattice<double> &priceTree, BinomialLattice<bool> &stoppingTree)
+// {
+// }
+
 double Call::payoff(double x) const
 {
     return (x > K) * (x - K);
