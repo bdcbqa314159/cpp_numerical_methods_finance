@@ -79,3 +79,54 @@ public:
 
     double payoff(double x) const override;
 };
+
+class DoubleStrikeOption : public EurOption
+{
+protected:
+    double K1 = 100., K2 = 101.;
+
+public:
+    DoubleStrikeOption() = default;
+    DoubleStrikeOption(int N, double K1, double K2) : Option(N), K1(K1), K2(K2) {}
+
+    void set_K(double K1_, double K2_)
+    {
+        K1 = K1_;
+        K2 = K2_;
+    }
+};
+
+class BullSpread : public DoubleStrikeOption
+{
+
+public:
+    double payoff(double x) const override;
+};
+
+class BearSpread : public DoubleStrikeOption
+{
+
+public:
+    double payoff(double z) const override;
+};
+
+class DoubleDigital : public DoubleStrikeOption
+{
+
+public:
+    double payoff(double x) const override;
+};
+
+class Strangle : public DoubleStrikeOption
+{
+
+public:
+    double payoff(double x) const override;
+};
+
+class Butterfly : public DoubleStrikeOption
+{
+
+public:
+    double payoff(double x) const override;
+};
