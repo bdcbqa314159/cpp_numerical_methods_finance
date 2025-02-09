@@ -1,13 +1,10 @@
 project(american_options_exercises)
 
-set(exe16 exercise16)
-add_executable(${exe16} ${exe16}.cpp)
+set(exe3_1 exercise3_1)
+add_executable(${exe3_1} ${exe3_1}.cpp)
 
-# set(exe13 exercise13)
-# add_executable(${exe13} ${exe13}.cpp)
+set(exe3_2 exercise3_2)
+add_executable(${exe3_2} ${exe3_2}.cpp)
 
-# set(exe14 exercise14)
-# add_executable(${exe14} ${exe14}.cpp)
-
-# set(exe15 exercise15)
-# add_executable(${exe15} ${exe15}.cpp)
+set(exe3_3 exercise3_3)
+add_executable(${exe3_3} ${exe3_3}.cpp)

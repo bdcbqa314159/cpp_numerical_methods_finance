@@ -1,6 +1,6 @@
 #include "options09.hpp"
 #include "bin_model02.hpp"
-#include "bin_lattice_02.hpp"
+#include "bin_lattice02.hpp"
 #include <iostream>
 #include <cmath>
 using namespace std;

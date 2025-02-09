@@ -1,12 +1,14 @@
-#ifndef Options08_h
-#define Options08_h
+#ifndef Options09_h
+#define Options09_h
 
+#include "bin_lattice02.hpp"
 #include "bin_model02.hpp"
 
 class Option
 {
 private:
     int N; // steps to expiry
+
 public:
     void SetN(int N_) { N = N_; }
     int GetN() { return N; }
@@ -24,13 +26,16 @@ class AmOption : public virtual Option
 {
 public:
     // pricing American option
-    double PriceBySnell(BinModel Model);
+    double PriceBySnell(BinModel Model,
+                        BinLattice<double> &PriceTree,
+                        BinLattice<bool> &StoppingTree);
 };
 
 class Call : public EurOption, public AmOption
 {
 private:
     double K; // strike price
+
 public:
     void SetK(double K_) { K = K_; }
     int GetInputData();
@@ -41,6 +46,7 @@ class Put : public EurOption, public AmOption
 {
 private:
     double K; // strike price
+
 public:
     void SetK(double K_) { K = K_; }
     int GetInputData();

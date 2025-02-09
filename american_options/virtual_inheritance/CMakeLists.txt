@@ -1,6 +1,6 @@
 project(virtual_inheritance)
 
-set(exe1 main12)
+set(exe1 main13)
 
 set(sources1 bin_model02.cpp options08.cpp ${exe1}.cpp)
 set(includes1 ./)

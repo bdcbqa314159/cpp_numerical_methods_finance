@@ -16,6 +16,7 @@ add_subdirectory(numerical_methods)
 
 add_subdirectory(binomial_pricer)
 add_subdirectory(binomial_pricer_revisited)
+add_subdirectory(american_options)
 
 add_subdirectory(test)
 
