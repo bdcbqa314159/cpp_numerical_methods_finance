@@ -100,6 +100,7 @@ double DigitalPutPayoff(double z, double K)
 {
     if (K > z)
         return 1.;
+    return 0.;
 }
 
 double RiskNeutProb(double U, double D, double R)

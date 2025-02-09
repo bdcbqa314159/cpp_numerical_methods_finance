@@ -1,3 +1,4 @@
 project(binomial_pricer_revisited)
 
+add_subdirectory(our_first_class)
 add_subdirectory(exercises)

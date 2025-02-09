@@ -5,19 +5,21 @@
 
 using namespace std;
 
-int GetInputData(int &N, double &K);
+int GetInputData(int &N, std::vector<double> &Ks);
 
-double PriceByCRR(double S0, double U, double D, double R, int N, double K, double (*Payoff)(double z, double strikes[], int size));
+double PriceByCRR(double S0, double U, double D,
+                  double R, int N, std::vector<double> &Ks,
+                  double (*Payoff)(double z, std::vector<double> &));
 
-double CallPayoff(double z, double K[], int);
+double CallPayoff(double z, std::vector<double> &);
 
-double PutPayoff(double z, double K[], int);
+double PutPayoff(double z, std::vector<double> &);
 
-double DigitalCallPayoff(double z, double K[], int);
+double DigitalCallPayoff(double z, std::vector<double> &);
 
-double DigitalPutPayoff(double z, double K[], int);
+double DigitalPutPayoff(double z, std::vector<double> &);
 
-double DoubleDigitalPayoff(double z, double K[], int);
+double DoubleDigitalPayoff(double z, std::vector<double> &);
 
 double RiskNeutProb(double U, double D, double R);
 
@@ -32,57 +34,78 @@ int main()
     if (GetInputData(S0, U, D, R) == 1)
         return 1;
 
-    double K; // strike price
-    int N;    // steps to expiry
+    std::vector<double> Ks; // strikes
+    int N;                  // steps to expiry
 
     cout << "Enter call option data:" << endl;
-    GetInputData(N, K);
+    GetInputData(N, Ks);
     cout << "European call option price = "
-         << PriceByCRR(S0, U, D, R, N, K, CallPayoff)
+         << PriceByCRR(S0, U, D, R, N, Ks, CallPayoff)
          << endl
          << endl;
 
     cout << "Enter put option data:" << endl;
-    GetInputData(N, K);
+    GetInputData(N, Ks);
     cout << "European put option price =  "
-         << PriceByCRR(S0, U, D, R, N, K, PutPayoff)
+         << PriceByCRR(S0, U, D, R, N, Ks, PutPayoff)
          << endl
          << endl;
 
-    GetInputData(N, K);
+    GetInputData(N, Ks);
     cout << "European digital call option price =  "
-         << PriceByCRR(S0, U, D, R, N, K, DigitalCallPayoff)
+         << PriceByCRR(S0, U, D, R, N, Ks, DigitalCallPayoff)
          << endl
          << endl;
 
-    GetInputData(N, K);
+    GetInputData(N, Ks);
     cout << "European digital put option price =  "
-         << PriceByCRR(S0, U, D, R, N, K, DigitalPutPayoff)
+         << PriceByCRR(S0, U, D, R, N, Ks, DigitalPutPayoff)
          << endl
          << endl;
 
     return 0;
 }
 
-int GetInputData(int &N, double &K)
+int GetInputData(int &N, std::vector<double> &Ks)
 {
     cout << "Enter steps to expiry N: ";
     cin >> N;
-    cout << "Enter strike price K:    ";
-    cin >> K;
-    cout << endl;
+    int n{};
+    cout << "Enter number of strikes (min 1, max 2):    ";
+    cin >> n;
+    assert(n == 1 || 2);
+    Ks.resize(n);
+
+    if (n == 1)
+    {
+        cout << "Enter strike price K:    ";
+        cin >> Ks[0];
+        cout << endl;
+    }
+
+    else
+    {
+
+        cout << "Enter strike price K1:    ";
+        cin >> Ks[0];
+        cout << endl;
+        cout << "Enter strike price K1:    ";
+        cin >> Ks[1];
+        cout << endl;
+    }
+
     return 0;
 }
 
 double PriceByCRR(double S0, double U, double D,
-                  double R, int N, double K,
-                  double (*Payoff)(double z, double K))
+                  double R, int N, std::vector<double> &Ks,
+                  double (*Payoff)(double z, std::vector<double> &))
 {
     double q = RiskNeutProb(U, D, R);
     double Price[N + 1];
     for (int i = 0; i <= N; i++)
     {
-        Price[i] = Payoff(S(S0, U, D, N, i), K);
+        Price[i] = Payoff(S(S0, U, D, N, i), Ks);
     }
     for (int n = N - 1; n >= 0; n--)
     {
@@ -115,6 +138,7 @@ double DigitalCallPayoff(double z, std::vector<double> &K)
     assert(K.size() == 1);
     if (z > K[0])
         return 1.;
+    return 0.;
 }
 
 double DigitalPutPayoff(double z, std::vector<double> &K)
@@ -122,6 +146,7 @@ double DigitalPutPayoff(double z, std::vector<double> &K)
     assert(K.size() == 1);
     if (K[0] > z)
         return 1.;
+    return 0.;
 }
 
 double DoubleDigitalPayoff(double z, std::vector<double> &K)
@@ -129,6 +154,7 @@ double DoubleDigitalPayoff(double z, std::vector<double> &K)
     assert(K.size() == 2 && K[0] < K[1]);
     if (z < K[1] && z > K[0])
         return 1.;
+    return 0.;
 }
 
 double RiskNeutProb(double U, double D, double R)
