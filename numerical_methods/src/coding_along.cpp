@@ -2,10 +2,15 @@
 #include "payoff_utils.hpp"
 #include <cassert>
 
-double risk_neutral_calculator(double U, double D, double R)
+void risk_neutral_checker(double &U, double &D, double &R)
 {
     bool non_arbitrage = D < R && R < U;
-    assert(non_arbitrage && "we must have D < R < U to avoid arbitrage");
+    assert(non_arbitrage);
+}
+
+double risk_neutral_calculator(double U, double D, double R)
+{
+    risk_neutral_checker(U, D, R);
 
     double q = (R - D) / (U - D);
     return q;
