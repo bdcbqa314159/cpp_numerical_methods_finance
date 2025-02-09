@@ -5,3 +5,4 @@
 #include "./includes/payoff_utils.hpp"
 #include "./includes/binomial_model_utils.hpp"
 #include "./includes/binomial_model.hpp"
+#include "./includes/binomial_lattice.hpp"

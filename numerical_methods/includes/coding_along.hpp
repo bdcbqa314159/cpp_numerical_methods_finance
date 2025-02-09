@@ -1,4 +1,81 @@
 #pragma once
+#include "binomial_model.hpp"
+#include "binomial_lattice.hpp"
 #include <iostream>
 
-// putting my coded notes here the structure will organised later
+class Option
+{
+private:
+    int N{};
+
+public:
+    Option() = default;
+    Option(int N) : N(N) {}
+    virtual ~Option() = default;
+
+    void set_N(int N_)
+    {
+        N = N_;
+    }
+
+    int get_N() const { return N; }
+
+    virtual double payoff(double x) const = 0;
+};
+
+class EurOption : public virtual Option
+{
+public:
+    double price_by_CRR(BinomialModel Model);
+};
+
+// class AmOption : public virtual Option
+// {
+// public:
+//     double price_by_Snell(BinomialModel Model, BinomialLattice<double> &priceTree, BinomialLattice<bool> &stoppingTree);
+// };
+
+class SingleStrikeOption : public EurOption
+{
+
+protected:
+    double K = 100.;
+
+public:
+    SingleStrikeOption() = default;
+    SingleStrikeOption(int N, double K) : Option(N), K(K) {}
+
+    void set_K(double K_) { K = K_; }
+};
+
+class Call : public SingleStrikeOption
+{
+public:
+    Call() = default;
+
+    double payoff(double x) const override;
+};
+
+class Put : public SingleStrikeOption
+{
+public:
+    Put() = default;
+
+    double payoff(double x) const override;
+};
+
+class DigitalCall : SingleStrikeOption
+{
+public:
+    DigitalCall() = default;
+
+    double payoff(double x) const override;
+};
+
+class DigitalPut : SingleStrikeOption
+{
+public:
+    DigitalPut() = default;
+
+    double payoff(double x) const override;
+};
