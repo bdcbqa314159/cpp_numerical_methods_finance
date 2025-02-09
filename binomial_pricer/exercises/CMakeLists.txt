@@ -23,3 +23,12 @@ add_executable(${exe7} ${exe7}.cpp)
 
 set(exe8 exercise08)
 add_executable(${exe8} ${exe8}.cpp)
+
+set(exe9 exercise09)
+add_executable(${exe9} ${exe9}.cpp)
+
+set(exe10 exercise10)
+add_executable(${exe10} ${exe10}.cpp)
+
+set(exe11 exercise11)
+add_executable(${exe11} ${exe11}.cpp)

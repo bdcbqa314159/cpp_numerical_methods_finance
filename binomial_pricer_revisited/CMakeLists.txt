@@ -1,0 +1,3 @@
+project(binomial_pricer_revisited)
+
+add_subdirectory(exercises)
