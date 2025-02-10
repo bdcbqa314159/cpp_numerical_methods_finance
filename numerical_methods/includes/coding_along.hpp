@@ -29,11 +29,11 @@ public:
     double price_by_CRR(BinomialModel Model);
 };
 
-// class AmOption : public virtual Option
-// {
-// public:
-//     double price_by_Snell(BinomialModel Model, BinomialLattice<double> &priceTree, BinomialLattice<bool> &stoppingTree);
-// };
+class AmOption : public virtual Option
+{
+public:
+    double price_by_Snell(BinomialModel Model, BinomialLattice<double> &priceTree, BinomialLattice<bool> &stoppingTree);
+};
 
 class SingleStrikeOption : public EurOption
 {

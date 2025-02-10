@@ -22,6 +22,11 @@ public:
             lattice[n].resize(n + 1);
     }
 
+    void set_node(int n, int i, T x)
+    {
+        lattice[n][i] = x;
+    }
+
     T get_node(int n, int i)
     {
         return lattice[n][i];
