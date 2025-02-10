@@ -1,0 +1,4 @@
+project(non_linear_solvers)
+
+add_subdirectory(function_pointers)
+add_subdirectory(exercises)
