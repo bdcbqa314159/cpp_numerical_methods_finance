@@ -1,7 +1,7 @@
 project(monte_carlo_methods_exercises)
 
-# set(exe5_1 exercise5_1)
-# add_executable(${exe5_1} ${exe5_1}.cpp)
+set(exe5_1 exercise5_1)
+add_executable(${exe5_1} ${exe5_1}.cpp)
 
 # set(exe5_2 exercise5_2)
 # add_executable(${exe5_2} ${exe5_2}.cpp)
