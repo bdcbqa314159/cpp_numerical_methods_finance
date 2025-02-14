@@ -1,6 +1,4 @@
 #include <iostream>
-#include "Exe5-7_ContGmtrAsianCall.h"
-
 #include <vector>
 #include <cstdlib>
 #include <ctime>
