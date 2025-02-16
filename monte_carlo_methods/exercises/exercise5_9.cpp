@@ -35,9 +35,11 @@ public:
 class PathDepOption
 {
 public:
-    double T, PricingError, Price;
+    double T, Price;
     int m;
-    double PriceByMC(BSModel Model, long N);
+    Vector delta;
+    double PriceByMC(BSModel Model, long N, double epsilon);
+    virtual ~PathDepOption() {}
     virtual double Payoff(SamplePath &S) = 0;
 };
 
@@ -83,10 +85,13 @@ int main()
     ArthmAsianCall Option(T, K, m);
 
     long N = 30000;
-    Option.PriceByMC(Model, N);
+    double epsilon = 0.001;
     cout << "Arithmetic Basket Call Price = "
-         << Option.Price << endl
-         << "Pricing error = " << Option.PricingError << endl;
+         << Option.PriceByMC(Model, N, epsilon) << endl;
+    for (int j = 0; j < d; j++)
+    {
+        cout << "delta[" << j << "] = " << Option.delta[j] << endl;
+    }
 
     return 0;
 }
@@ -196,18 +201,41 @@ void BSModel::GenerateSamplePath(double T, int m, SamplePath &S)
     }
 }
 
-double PathDepOption::PriceByMC(BSModel Model, long N)
+void Rescale(SamplePath &S, double x, int j)
 {
-    double H = 0.0, Hsq = 0.0;
+    int m = S.size();
+    for (int k = 0; k < m; k++)
+        S[k][j] = x * S[k][j];
+}
+
+double PathDepOption::PriceByMC(BSModel Model, long N, double epsilon)
+{
+    double H = 0.0;
     SamplePath S(m);
+
+    int d = Model.S0.size();
+    delta.resize(d);
+
+    Vector Heps(d);
+    for (int i = 0; i < d; i++)
+        Heps[i] = 0.0;
+
     for (long i = 0; i < N; i++)
     {
         Model.GenerateSamplePath(T, m, S);
         H = (i * H + Payoff(S)) / (i + 1.0);
-        Hsq = (i * Hsq + pow(Payoff(S), 2.0)) / (i + 1.0);
+
+        for (int j = 0; j < d; j++)
+        {
+            Rescale(S, 1.0 + epsilon, j);
+            Heps[j] = (i * Heps[j] + Payoff(S)) / (i + 1.0);
+            if (j < d - 1)
+                Rescale(S, 1.0 / (1.0 + epsilon), j);
+        }
     }
     Price = exp(-Model.r * T) * H;
-    PricingError = exp(-Model.r * T) * sqrt(Hsq - H * H) / sqrt(N - 1.0);
+    for (int j = 0; j < d; j++)
+        delta[j] = exp(-Model.r * T) * (Heps[j] - H) / (epsilon * Model.S0[j]);
     return Price;
 }
 

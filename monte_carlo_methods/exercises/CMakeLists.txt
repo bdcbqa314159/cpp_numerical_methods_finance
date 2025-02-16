@@ -21,4 +21,14 @@ add_executable(${exe5_6} ${exe5_6}.cpp)
 set(exe5_7 exercise5_7)
 add_executable(${exe5_7} ${exe5_7}.cpp)
 
+set(exe5_8 exercise5_8)
+add_executable(${exe5_8} ${exe5_8}.cpp)
 
+set(exe5_9 exercise5_9)
+add_executable(${exe5_9} ${exe5_9}.cpp)
+
+set(exe5_10 exercise5_10)
+add_executable(${exe5_10} ${exe5_10}.cpp)
+
+set(exe5_11 exercise5_11)
+add_executable(${exe5_11} ${exe5_11}.cpp)

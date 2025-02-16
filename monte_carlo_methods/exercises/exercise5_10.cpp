@@ -35,7 +35,7 @@ public:
 class PathDepOption
 {
 public:
-    double T, PricingError, Price;
+    double T;
     int m;
     double PriceByMC(BSModel Model, long N);
     virtual double Payoff(SamplePath &S) = 0;
@@ -50,6 +50,19 @@ public:
         T = T_;
         K = K_;
         m = m_;
+    }
+    double Payoff(SamplePath &S);
+};
+
+class EurBasketCall : public PathDepOption
+{
+public:
+    double K;
+    EurBasketCall(double T_, double K_)
+    {
+        T = T_;
+        K = K_;
+        m = 1;
     }
     double Payoff(SamplePath &S);
 };
@@ -79,14 +92,12 @@ int main()
     BSModel Model(S0, r, C);
 
     double T = 1.0 / 12.0, K = 200.0;
-    int m = 30;
-    ArthmAsianCall Option(T, K, m);
+
+    EurBasketCall Option(T, K);
 
     long N = 30000;
-    Option.PriceByMC(Model, N);
-    cout << "Arithmetic Basket Call Price = "
-         << Option.Price << endl
-         << "Pricing error = " << Option.PricingError << endl;
+    cout << "European Basket Call Price = "
+         << Option.PriceByMC(Model, N) << endl;
 
     return 0;
 }
@@ -198,17 +209,14 @@ void BSModel::GenerateSamplePath(double T, int m, SamplePath &S)
 
 double PathDepOption::PriceByMC(BSModel Model, long N)
 {
-    double H = 0.0, Hsq = 0.0;
+    double H = 0.0;
     SamplePath S(m);
     for (long i = 0; i < N; i++)
     {
         Model.GenerateSamplePath(T, m, S);
         H = (i * H + Payoff(S)) / (i + 1.0);
-        Hsq = (i * Hsq + pow(Payoff(S), 2.0)) / (i + 1.0);
     }
-    Price = exp(-Model.r * T) * H;
-    PricingError = exp(-Model.r * T) * sqrt(Hsq - H * H) / sqrt(N - 1.0);
-    return Price;
+    return exp(-Model.r * T) * H;
 }
 
 double ArthmAsianCall::Payoff(SamplePath &S)
@@ -225,4 +233,15 @@ double ArthmAsianCall::Payoff(SamplePath &S)
     if (Ave < K)
         return 0.0;
     return Ave - K;
+}
+
+double EurBasketCall::Payoff(SamplePath &S)
+{
+    double Sum = 0.0;
+    int d = S[0].size();
+    for (int i = 0; i < d; i++)
+        Sum = Sum + S[0][i];
+    if (Sum < K)
+        return 0.0;
+    return Sum - K;
 }
