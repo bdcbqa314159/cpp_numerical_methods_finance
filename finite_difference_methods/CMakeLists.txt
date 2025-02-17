@@ -1,0 +1,3 @@
+project(finite_difference_methods)
+
+add_subdirectory(exercises)

@@ -1,0 +1,8 @@
+project(parabolic_pde)
+
+set(exe1 parabolic_pde)
+set(sources1 ${exe1}.cpp)
+set(includes1 ./)
+
+add_executable(${exe1} ${sources1})
+target_include_directories(${exe1} PUBLIC ${includes1})
