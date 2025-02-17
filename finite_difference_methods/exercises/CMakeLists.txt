@@ -1,10 +1,9 @@
 project(finite_difference_methods_exercises)
 
-set(exe6_1 exercise6_1)
-add_executable(${exe6_1} ${exe6_1}.cpp)
+MESSAGE(STATUS "Exercise 6.1 is in the notes.")
 
-# set(exe6_2 exercise6_2)
-# add_executable(${exe6_2} ${exe6_2}.cpp)
+set(exe6_2 exercise6_2)
+add_executable(${exe6_2} ${exe6_2}.cpp)
 
 # set(exe6_3 exercise6_3)
 # add_executable(${exe6_3} ${exe6_3}.cpp)

@@ -19,6 +19,7 @@ add_subdirectory(binomial_pricer_revisited)
 add_subdirectory(american_options)
 add_subdirectory(non_linear_solvers)
 add_subdirectory(monte_carlo_methods)
+add_subdirectory(finite_difference_methods)
 
 add_subdirectory(test)
 
