@@ -5,11 +5,11 @@ MESSAGE(STATUS "Exercise 6.1 is in the notes.")
 set(exe6_2 exercise6_2)
 add_executable(${exe6_2} ${exe6_2}.cpp)
 
-# set(exe6_3 exercise6_3)
-# add_executable(${exe6_3} ${exe6_3}.cpp)
+set(exe6_3 exercise6_3)
+add_executable(${exe6_3} ${exe6_3}.cpp)
 
-# set(exe6_4 exercise6_4)
-# add_executable(${exe6_4} ${exe6_4}.cpp)
+set(exe6_4 exercise6_4)
+add_executable(${exe6_4} ${exe6_4}.cpp)
 
 # set(exe6_5 exercise6_5)
 # add_executable(${exe6_5} ${exe6_5}.cpp)
