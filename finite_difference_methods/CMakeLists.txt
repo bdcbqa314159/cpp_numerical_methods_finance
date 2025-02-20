@@ -2,4 +2,5 @@ project(finite_difference_methods)
 
 add_subdirectory(parabolic_pde)
 add_subdirectory(explicit_method)
+add_subdirectory(implicit_method)
 add_subdirectory(exercises)
